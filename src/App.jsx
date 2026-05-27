@@ -22,11 +22,18 @@ import Statement from './pages/Statement';
 import InstallPWA from './components/InstallPWA';
 import './App.css';
 
+
+function NavbarWrapper() {
+  const location = window.location.pathname;
+  const hideOn = ['/login', '/register', '/forgot-password'];
+  if (hideOn.includes(location)) return null;
+  return <Navbar />;
+}
+
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route path="/canteen-panel" element={<CanteenPanel />} />
           <Route path="/login" element={<Login />} />
