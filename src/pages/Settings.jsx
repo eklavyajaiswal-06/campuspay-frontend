@@ -32,6 +32,50 @@ const TABS = [
   { id: 'developer', label: 'Developer',  icon: Code    },
 ];
 
+
+function PWAInstallCard() {
+  const [prompt,    setPrompt]    = React.useState(null);
+  const [installed, setInstalled] = React.useState(false);
+
+  React.useEffect(() => {
+    // Check if already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setInstalled(true);
+      return;
+    }
+    const handler = (e) => { e.preventDefault(); setPrompt(e); };
+    window.addEventListener('beforeinstallprompt', handler);
+    window.addEventListener('appinstalled', () => { setInstalled(true); setPrompt(null); });
+    // Check if prompt was already captured before this component mounted
+    if (window._pwaPrompt) setPrompt(window._pwaPrompt);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (!prompt) return;
+    prompt.prompt();
+    const { outcome } = await prompt.userChoice;
+    if (outcome === 'accepted') { setInstalled(true); setPrompt(null); }
+  };
+
+  return (
+    <div className="dev-install-card">
+      <img src="/campuspay_logo.png" alt="CampusPay" className="dev-install-logo" />
+      <div className="dev-install-info">
+        <div className="dev-install-title">Install CampusPay App</div>
+        <div className="dev-install-sub">Add to home screen · Works offline · Instant access</div>
+      </div>
+      {installed ? (
+        <div className="dev-install-badge">✅ Installed</div>
+      ) : prompt ? (
+        <button className="dev-install-btn" onClick={handleInstall}>⬇ Install</button>
+      ) : (
+        <div className="dev-install-badge" style={{color:'#64748b',borderColor:'#1e293b'}}>Open in Chrome</div>
+      )}
+    </div>
+  );
+}
+
 export default function Settings() {
   const { user } = useAuth();
   const fileRef  = useRef(null);
@@ -429,21 +473,7 @@ export default function Settings() {
               ))}
             </div>
 
-            <div className="dev-install-card">
-              <div className="dev-install-icon">📲</div>
-              <div className="dev-install-info">
-                <div className="dev-install-title">Install CampusPay App</div>
-                <div className="dev-install-sub">Add to your home screen for quick access — works like a native app</div>
-              </div>
-              <button className="dev-install-btn" id="pwa-install-btn" style={{display:'none'}}
-                onClick={() => {
-                  const e = window._pwaPrompt;
-                  if (e) { e.prompt(); e.userChoice.then(() => { document.getElementById('pwa-install-btn').style.display='none'; }); }
-                }}>
-                ⬇ Install
-              </button>
-              <div id="pwa-installed-badge" style={{display:'none'}} className="dev-install-badge">✅ Installed</div>
-            </div>
+            <PWAInstallCard />
             <div className="dev-footer-card">
               <div className="dev-footer-heart">❤️</div>
               <div className="dev-footer-text">Made with passion for Poornima University</div>
