@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
@@ -24,9 +24,9 @@ import './App.css';
 
 
 function NavbarWrapper() {
-  const location = window.location.pathname;
+  const { pathname } = useLocation();
   const hideOn = ['/login', '/register', '/forgot-password'];
-  if (hideOn.includes(location)) return null;
+  if (hideOn.includes(pathname)) return null;
   return <Navbar />;
 }
 
