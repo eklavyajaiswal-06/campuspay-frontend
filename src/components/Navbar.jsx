@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, Send, ClipboardList, FileText, Settings, ShieldCheck, LogOut, Menu, X, Bell } from 'lucide-react';
+import { LayoutDashboard, Send, ClipboardList, FileText, Settings, ShieldCheck, LogOut, Menu, X, Bell, ShoppingBag, SlidersHorizontal } from 'lucide-react';
 import NotificationBell from './NotificationBell';
 import logo from '../campuspay_logo.png';
 import './Navbar.css';
@@ -55,7 +55,31 @@ export default function Navbar() {
             <LogOut size={14} /> <span>Logout</span>
           </button>
         </div>
-      </nav>
+      
+      {/* ── Mobile Bottom Navigation ── */}
+      <div className="mobile-bottom-nav">
+        <NavLink to="/dashboard" className={({ isActive }) => `mob-nav-item ${isActive ? 'active' : ''}`}>
+          <LayoutDashboard size={22} strokeWidth={2} />
+          <span>Home</span>
+        </NavLink>
+        <NavLink to="/pay" className={({ isActive }) => `mob-nav-item ${isActive ? 'active' : ''}`}>
+          <Send size={22} strokeWidth={2} />
+          <span>Pay</span>
+        </NavLink>
+        <NavLink to="/canteen" className={({ isActive }) => `mob-nav-item ${isActive ? 'active' : ''}`}>
+          <ShoppingBag size={22} strokeWidth={2} />
+          <span>Canteen</span>
+        </NavLink>
+        <NavLink to="/transactions" className={({ isActive }) => `mob-nav-item ${isActive ? 'active' : ''}`}>
+          <ClipboardList size={22} strokeWidth={2} />
+          <span>History</span>
+        </NavLink>
+        <NavLink to="/settings" className={({ isActive }) => `mob-nav-item ${isActive ? 'active' : ''}`}>
+          <SlidersHorizontal size={22} strokeWidth={2} />
+          <span>More</span>
+        </NavLink>
+      </div>
+    </nav>
 
       {/* ── MOBILE Top bar ── */}
       <nav className="navbar mobile-nav">
@@ -100,15 +124,29 @@ export default function Navbar() {
       )}
 
       {/* ── MOBILE Bottom Tab Bar ── */}
-      <div className="mobile-tab-bar">
-        {navLinks.slice(0, 5).map(({ path, label, icon: Icon }) => (
-          <NavLink key={path} to={path}
-            className={({ isActive }) => `mobile-tab ${isActive ? 'active' : ''}`}>
-            <Icon size={20} strokeWidth={1.8} />
-            <span>{label}</span>
-          </NavLink>
-        ))}
-      </div>
+      {/* Mobile Bottom Nav */}
+<div className="mobile-nav">
+  <NavLink to="/dashboard" className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}>
+    <LayoutDashboard size={20} strokeWidth={2} />
+    <span>Home</span>
+  </NavLink>
+  <NavLink to="/pay" className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}>
+    <Send size={20} strokeWidth={2} />
+    <span>Pay</span>
+  </NavLink>
+  <NavLink to="/canteen" className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}>
+    <span style={{fontSize:20}}>🍽️</span>
+    <span>Canteen</span>
+  </NavLink>
+  <NavLink to="/transactions" className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}>
+    <ClipboardList size={20} strokeWidth={2} />
+    <span>History</span>
+  </NavLink>
+  <NavLink to="/settings" className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}>
+    <Settings size={20} strokeWidth={2} />
+    <span>More</span>
+  </NavLink>
+</div>
     </>
   );
 }
