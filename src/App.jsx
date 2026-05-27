@@ -36,6 +36,7 @@ export default function App() {
       <BrowserRouter>
         <NavbarWrapper />
         <Routes>
+          <Route path="/install-pwa" element={<InstallPWA />} />
           <Route path="/canteen-panel" element={<CanteenPanel />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
