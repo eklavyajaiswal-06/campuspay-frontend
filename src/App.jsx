@@ -19,6 +19,7 @@ import AdminManage from './pages/AdminManage';
 import AdminDashboard from './pages/AdminDashboard';
 import QRScanner from './pages/QRScanner';
 import Statement from './pages/Statement';
+import InstallPWA from './components/InstallPWA';
 import './App.css';
 
 export default function App() {

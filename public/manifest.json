@@ -1,25 +1,22 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CampusPay",
+  "name": "CampusPay — Campus Payment App",
+  "description": "Digital wallet and payment platform for Poornima University students",
   "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+    { "src": "favicon.ico",        "sizes": "64x64 32x32 24x24 16x16", "type": "image/x-icon" },
+    { "src": "logo192.png",        "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "logo512.png",        "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "campuspay_logo.png", "sizes": "512x512", "type": "image/png" }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "orientation": "portrait",
+  "theme_color": "#060b18",
+  "background_color": "#060b18",
+  "categories": ["finance", "education"],
+  "shortcuts": [
+    { "name": "Send Money",  "short_name": "Pay",     "url": "/pay",       "icons": [{ "src": "logo192.png", "sizes": "192x192" }] },
+    { "name": "Add Money",   "short_name": "Add",     "url": "/add-money", "icons": [{ "src": "logo192.png", "sizes": "192x192" }] },
+    { "name": "Canteen",     "short_name": "Canteen", "url": "/canteen",   "icons": [{ "src": "logo192.png", "sizes": "192x192" }] }
+  ]
 }

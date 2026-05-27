@@ -428,6 +428,22 @@ export default function Settings() {
                 </div>
               ))}
             </div>
+
+            <div className="dev-install-card">
+              <div className="dev-install-icon">📲</div>
+              <div className="dev-install-info">
+                <div className="dev-install-title">Install CampusPay App</div>
+                <div className="dev-install-sub">Add to your home screen for quick access — works like a native app</div>
+              </div>
+              <button className="dev-install-btn" id="pwa-install-btn" style={{display:'none'}}
+                onClick={() => {
+                  const e = window._pwaPrompt;
+                  if (e) { e.prompt(); e.userChoice.then(() => { document.getElementById('pwa-install-btn').style.display='none'; }); }
+                }}>
+                ⬇ Install
+              </button>
+              <div id="pwa-installed-badge" style={{display:'none'}} className="dev-install-badge">✅ Installed</div>
+            </div>
             <div className="dev-footer-card">
               <div className="dev-footer-heart">❤️</div>
               <div className="dev-footer-text">Made with passion for Poornima University</div>

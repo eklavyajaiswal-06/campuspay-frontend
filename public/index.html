@@ -2,28 +2,66 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/campuspay_logo.png" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0f172a" />
-    <meta name="description" content="CampusPay - One Wallet For Every Campus Need" />
+    <meta name="theme-color" content="#060b18" />
+
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="CampusPay" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CampusPay" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- SEO -->
+    <meta name="description" content="CampusPay — Digital wallet and payment platform for Poornima University. Pay fees, order food, register for events and more." />
+    <meta name="keywords" content="CampusPay, Poornima University, campus payment, digital wallet, UPI" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="CampusPay" />
+    <meta property="og:description" content="Your campus financial companion" />
+    <meta property="og:image" content="%PUBLIC_URL%/logo512.png" />
+    <meta property="og:type" content="website" />
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="%PUBLIC_URL%/logo512.png" />
+
+    <!-- Splash screens for iOS -->
+    <link rel="apple-touch-startup-image" href="%PUBLIC_URL%/logo512.png" />
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>CampusPay</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-  <style>
-    #splash { position:fixed; inset:0; background:#0a0f1e; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9999; transition: opacity 0.5s; }
-    #splash img { height:60px; margin-bottom:20px; animation: pulse 1.5s infinite; }
-    #splash p { color:#64748b; font-size:14px; font-family:sans-serif; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-  </style>
-  <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const s = document.getElementById('splash');
-        if(s){ s.style.opacity='0'; setTimeout(()=>s.remove(),500); }
-      }, 800);
-    });
-  </script>
+
+    <!-- Register Service Worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(function(reg) { console.log('SW registered:', reg.scope); })
+            .catch(function(err) { console.log('SW failed:', err); });
+        });
+      }
+    </script>
+  
+    <script>
+      window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        window._pwaPrompt = e;
+        var btn = document.getElementById('pwa-install-btn');
+        if (btn) btn.style.display = 'block';
+      });
+      window.addEventListener('appinstalled', function() {
+        var btn = document.getElementById('pwa-install-btn');
+        var badge = document.getElementById('pwa-installed-badge');
+        if (btn) btn.style.display = 'none';
+        if (badge) badge.style.display = 'block';
+      });
+    </script>
   </body>
 </html>
