@@ -34,10 +34,10 @@ const TABS = [
 
 
 function PWAInstallCard() {
-  const [prompt,    setPrompt]    = React.useState(null);
-  const [installed, setInstalled] = React.useState(false);
+  const [prompt,    setPrompt]    = useState(null);
+  const [installed, setInstalled] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Check if already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setInstalled(true);
