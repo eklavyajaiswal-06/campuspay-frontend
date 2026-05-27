@@ -34,6 +34,7 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <NavbarWrapper />
         <Routes>
           <Route path="/canteen-panel" element={<CanteenPanel />} />
           <Route path="/login" element={<Login />} />
